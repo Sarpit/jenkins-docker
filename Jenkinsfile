@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
       dockerImage = ''
-      registry = custom
+      registry = 'custom'
     }
     stages {
         stage('Checkout') {
