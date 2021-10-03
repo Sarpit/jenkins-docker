@@ -7,12 +7,11 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Sarpit/jenkins-docker.git'
             }
         }
-        stage('Docker build') {
-            agent {
-                 dockerfile {
-                      filename 'Dockerfile' 
-                 }
+        stage('Docker Build') {
+           agent any
+                steps {
+                    sh 'docker build -t custom:latest .'
+                }
             }
-        }
-     }
-}   
+    }
+}
