@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('Cloning') {
             steps {
@@ -8,5 +7,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Sarpit/jenkins-docker.git'
             }
         }
-   }
-}
+        stage('Docker build') {
+            agent {
+                 dockerfile {
+                      filename 'Dockerfile' 
+                 }
+            }
+        }
+     }
+}   
