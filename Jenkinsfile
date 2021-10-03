@@ -2,7 +2,8 @@ pipeline {
     agent any
     environment {
       dockerImage = ''
-      registry = 'custom'
+      registry = 'arpitdoc/samplehttpd'
+      registryCredential = 'dockerid'
     }
     stages {
         stage('Checkout') {
@@ -17,5 +18,14 @@ pipeline {
                     }
                 }
             }
+        stage('Docker Push Image'){
+            steps {
+                script {
+                        docker.withRegistry('',registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
     }
 }
