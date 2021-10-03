@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Cloning') {
             steps {
-                echo 'Cloning'
+                echo $USER
                 git branch: 'main', url: 'https://github.com/Sarpit/jenkins-docker.git'
             }
         }
