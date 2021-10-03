@@ -1,16 +1,20 @@
 pipeline {
     agent any
+    environment {
+      dockerImage = ''
+      registry = custom
+    }
     stages {
-        stage('Cloning') {
+        stage('Checkout') {
             steps {
-                echo $USER
-                git branch: 'main', url: 'https://github.com/Sarpit/jenkins-docker.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sarpit/jenkins-docker.git']]])
             }
         }
-        stage('Docker Build') {
-           agent any
+        stage('Docker Build Image') {
                 steps {
-                    sh 'docker build -t custom:latest .'
+                    script {
+                        dockerImage = docker.build registry
+                    }
                 }
             }
     }
