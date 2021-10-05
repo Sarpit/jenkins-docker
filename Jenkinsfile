@@ -27,5 +27,13 @@ pipeline {
                 }
             }
         }
+   
+        stage('Deploy App') {
+            steps {
+                script {
+                        kubernetesDeploy(configs: "deploy-httpd.yaml", kubeconfigId: "mykubeconfig")
+        }
+      }
+    }
     }
 }
