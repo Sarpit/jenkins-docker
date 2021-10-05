@@ -27,18 +27,5 @@ pipeline {
                 }
             }
         }
-        stage('docker stop container') {
-            steps {
-                sh 'docker ps -f name=samplehttpd -q | xargs --no-run-if-empty docker container stop'
-                sh 'docker container ls -a -fname=samplehttpd -q | xargs -r docker container rm'
-         }
-       }
-      stage('Docker Run') {
-            steps{
-                script {
-                dockerImage.run("-p 9090:80 --rm --name samplehttpd")
-                }
-           }  
       }
-   }
 }
