@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: samplehttpd
+  name: samplehttpd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samplehttpd
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: samplehttpd
+    spec:
+      containers:
+      - image: arpitdoc/samplehttpd
+        name: samplehttpd
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: samplehttpd
+  name: samplehttpd-svc
+spec:
+  ports:
+  - port: 80
+    nodePort: 30010
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: samplehttpd
+  type: NodePort
+status:
+  loadBalancer: {}
